@@ -135,9 +135,8 @@ export default function PdfChatbotPage() {
   };
 
   const generateSessionId = () => {
-    return `session_${Date.now()}_${Math.random()
-      .toString(36)
-      .substring(2, 11)}`;
+    // Use crypto.randomUUID() for cryptographically secure random IDs
+    return `session_${Date.now()}_${crypto.randomUUID().replace(/-/g, '').substring(0, 9)}`;
   };
 
   const addToast = (toast: Omit<Toast, "id">) => {
