@@ -41,7 +41,12 @@ const server = createServer(app);
 
 // CSRF Configuration
 const csrfProtection = doubleCsrf({
-  getSecret: () => process.env.CSRF_SECRET || "your-csrf-secret-key-change-in-production",
+  getSecret: () => {
+    if (!process.env.CSRF_SECRET) {
+      throw new Error("CSRF_SECRET environment variable is not configured. Please set it in your .env file.");
+    }
+    return process.env.CSRF_SECRET;
+  },
   cookieName: "x-csrf-token",
   cookieOptions: {
     httpOnly: true,

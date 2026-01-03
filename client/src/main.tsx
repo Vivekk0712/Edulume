@@ -5,7 +5,8 @@ import App from './App.tsx'
 import { initCSRF } from './utils/api'
 
 // Initialize CSRF token before rendering
-initCSRF().then(() => {
+// Use .finally() so app renders even if CSRF fetch fails
+initCSRF().finally(() => {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <App />
